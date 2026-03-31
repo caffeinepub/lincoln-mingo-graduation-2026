@@ -4,6 +4,7 @@ import EventDetails from "./components/EventDetails";
 import FooterSection from "./components/FooterSection";
 import GallerySection from "./components/GallerySection";
 import HeroSection from "./components/HeroSection";
+import LinkPreviewSection from "./components/LinkPreviewSection";
 import NavHeader from "./components/NavHeader";
 import RsvpSection from "./components/RsvpSection";
 
@@ -21,6 +22,7 @@ export default function App() {
         <EventDetails />
         <RsvpSection />
         <GallerySection />
+        <LinkPreviewSection />
       </main>
       <FooterSection onAdminClick={() => setShowAdmin(true)} />
       {showAdmin && <AdminPanel onClose={() => setShowAdmin(false)} />}
