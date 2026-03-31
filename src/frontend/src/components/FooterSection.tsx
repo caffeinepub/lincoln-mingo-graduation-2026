@@ -54,8 +54,7 @@ export default function FooterSection({ onAdminClick }: FooterSectionProps) {
           style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
         >
           <p className="text-xs" style={{ color: "#ffffff50" }}>
-            &copy; 2026 Lincoln Mingo Graduation Celebration. With love from the
-            Mingo family.
+            &copy; 2026 The Mingo McFerren Family
           </p>
         </div>
       </div>

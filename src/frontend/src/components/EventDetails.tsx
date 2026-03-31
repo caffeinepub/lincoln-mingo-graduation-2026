@@ -29,7 +29,7 @@ export default function EventDetails() {
 
         <div className="grid gap-6">
           {/* Date & Time */}
-          <div className="bg-white rounded-lg p-6 shadow-sm flex items-start gap-4 text-left">
+          <div className="bg-white rounded-lg p-6 shadow-sm flex flex-col items-center gap-3 text-center">
             <div
               className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
               style={{ backgroundColor: "#0F2B4A" }}
@@ -74,7 +74,7 @@ export default function EventDetails() {
           </div>
 
           {/* Location */}
-          <div className="bg-white rounded-lg p-6 shadow-sm flex items-start gap-4 text-left">
+          <div className="bg-white rounded-lg p-6 shadow-sm flex flex-col items-center gap-3 text-center">
             <div
               className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
               style={{ backgroundColor: "#0F2B4A" }}
@@ -153,7 +153,7 @@ export default function EventDetails() {
           </div>
 
           {/* Graduate */}
-          <div className="bg-white rounded-lg p-6 shadow-sm flex items-start gap-4 text-left">
+          <div className="bg-white rounded-lg p-6 shadow-sm flex flex-col items-center gap-3 text-center">
             <div
               className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
               style={{ backgroundColor: "#0F2B4A" }}

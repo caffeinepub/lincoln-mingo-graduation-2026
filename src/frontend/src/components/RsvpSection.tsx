@@ -67,7 +67,7 @@ export default function RsvpSection() {
           <div className="h-px w-16" style={{ backgroundColor: "#B89A4A" }} />
         </div>
         <p className="text-sm mb-8" style={{ color: "#555555" }}>
-          Please respond by May 14, 2026
+          Please respond by April 15, 2026
         </p>
 
         {submitted ? (
@@ -148,7 +148,7 @@ export default function RsvpSection() {
             </h3>
             <p className="text-sm" style={{ color: "#555555" }}>
               You need a personal invite link to RSVP. Please contact the Mingo
-              family for your invitation.
+              McFerren Family for your invitation.
             </p>
           </div>
         ) : (

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
+const GRADUATION_DATE = new Date("2026-05-28T16:00:00-05:00").getTime();
+
 function Countdown() {
-  const target = new Date("2026-05-28T16:00:00-05:00").getTime();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -12,7 +13,7 @@ function Countdown() {
   useEffect(() => {
     const tick = () => {
       const now = Date.now();
-      const diff = target - now;
+      const diff = GRADUATION_DATE - now;
       if (diff <= 0) {
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         return;
@@ -27,10 +28,10 @@ function Countdown() {
     tick();
     const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, [target]);
+  }, []);
 
   return (
-    <div className="flex gap-4 mt-6">
+    <div className="flex gap-4 justify-center mt-8">
       {(
         [
           { value: timeLeft.days, label: "Days" },
@@ -41,18 +42,22 @@ function Countdown() {
       ).map(({ value, label }) => (
         <div key={label} className="text-center">
           <div
-            className="w-14 h-14 flex items-center justify-center font-bold text-xl rounded"
+            className="w-18 h-18 flex items-center justify-center font-bold text-2xl"
             style={{
-              backgroundColor: "#0F2B4A",
+              width: "72px",
+              height: "72px",
+              backgroundColor: "rgba(15,43,74,0.9)",
               color: "#B89A4A",
+              border: "2px solid #B89A4A",
               fontFamily: "'Playfair Display', serif",
+              boxShadow: "0 0 20px rgba(184,154,74,0.25)",
             }}
           >
             {String(value).padStart(2, "0")}
           </div>
           <div
-            className="text-xs uppercase tracking-widest mt-1"
-            style={{ color: "#8B1A28" }}
+            className="text-xs uppercase tracking-widest mt-2"
+            style={{ color: "#B89A4A" }}
           >
             {label}
           </div>
@@ -69,126 +74,306 @@ export default function HeroSection() {
   };
 
   return (
-    <section
-      id="hero"
-      className="py-16 px-4"
-      style={{ backgroundColor: "#FFFFFF" }}
-    >
-      <div className="max-w-5xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          {/* Portrait with decorative frame */}
-          <div className="flex-shrink-0 relative w-72 md:w-80">
-            <div
-              className="absolute rounded"
-              style={{
-                width: "100%",
-                height: "100%",
-                backgroundColor: "#B89A4A",
-                top: 16,
-                left: -16,
-                zIndex: 0,
-              }}
-            />
-            <div
-              className="absolute rounded"
-              style={{
-                width: "100%",
-                height: "100%",
-                backgroundColor: "#8B1A28",
-                top: 8,
-                left: -8,
-                zIndex: 0,
-              }}
-            />
-            <div
-              className="absolute rounded"
-              style={{
-                width: "100%",
-                height: "100%",
-                backgroundColor: "#0F2B4A",
-                top: 0,
-                left: 0,
-                zIndex: 0,
-              }}
-            />
-            <img
-              src="/assets/img_9526-019d402e-fb2a-779a-a1bc-d0082738288b.jpeg"
-              alt="Lincoln Mingo, Class of 2026"
-              className="relative rounded shadow-2xl w-full object-cover"
-              style={{ zIndex: 1, aspectRatio: "3/4", objectPosition: "top" }}
-            />
-            <div
-              className="absolute -bottom-4 -right-4 w-20 h-20 rounded-full flex flex-col items-center justify-center z-10 shadow-lg"
-              style={{
-                backgroundColor: "#0F2B4A",
-                border: "3px solid #B89A4A",
-              }}
-            >
-              <span
-                className="text-xs font-bold uppercase tracking-wider"
-                style={{
-                  color: "#B89A4A",
-                  fontFamily: "'Playfair Display', serif",
-                }}
-              >
-                Class
-              </span>
-              <span
-                className="text-lg font-bold"
-                style={{
-                  color: "#FFFFFF",
-                  fontFamily: "'Playfair Display', serif",
-                }}
-              >
-                2026
-              </span>
-            </div>
-          </div>
+    <section id="hero" style={{ backgroundColor: "#0A1628" }}>
+      {/* ── Text Header ── */}
+      <div className="pt-12 pb-6 px-4 text-center">
+        <p
+          className="text-xs uppercase tracking-[0.55em] font-bold mb-5"
+          style={{ color: "#B89A4A" }}
+        >
+          Red Oak High School
+        </p>
 
-          {/* Text content */}
-          <div className="flex-1 text-center md:text-left">
-            <p
-              className="text-sm uppercase tracking-[0.3em] font-semibold mb-2"
-              style={{ color: "#8B1A28" }}
-            >
-              Red Oak High School
-            </p>
-            <h1
-              className="text-5xl md:text-6xl font-bold leading-tight mb-4"
+        <h1
+          className="font-black leading-none uppercase"
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: "clamp(3.5rem, 10vw, 8rem)",
+            color: "#FFFFFF",
+            textShadow: "0 4px 32px rgba(184,154,74,0.35)",
+            letterSpacing: "-0.01em",
+          }}
+        >
+          Lincoln
+        </h1>
+        <h1
+          className="font-black leading-none uppercase"
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: "clamp(3.5rem, 10vw, 8rem)",
+            color: "#B89A4A",
+            textShadow: "0 4px 32px rgba(184,154,74,0.5)",
+            letterSpacing: "-0.01em",
+            marginTop: "-0.05em",
+          }}
+        >
+          Mingo
+        </h1>
+
+        <div className="flex items-center justify-center gap-4 mt-4 mb-2">
+          <div
+            className="h-px flex-1"
+            style={{ maxWidth: "80px", backgroundColor: "#8B1A28" }}
+          />
+          <p
+            className="text-lg md:text-2xl font-bold uppercase tracking-[0.3em]"
+            style={{
+              color: "#8B1A28",
+              fontFamily: "'Playfair Display', serif",
+            }}
+          >
+            Class of 2026
+          </p>
+          <div
+            className="h-px flex-1"
+            style={{ maxWidth: "80px", backgroundColor: "#8B1A28" }}
+          />
+        </div>
+      </div>
+
+      {/* ── Desktop: 3-Panel Collage — Cap & Gown FIRST, then two football shots ── */}
+      <div
+        className="relative hidden md:flex items-stretch"
+        style={{ minHeight: "560px" }}
+      >
+        {/* PANEL 1 — Senior Portrait / Cap & Gown (FIRST) */}
+        <div
+          className="relative overflow-hidden"
+          style={{
+            flex: "1",
+            clipPath: "polygon(0 0, 100% 0, calc(100% - 50px) 100%, 0 100%)",
+            zIndex: 3,
+          }}
+        >
+          <img
+            src="/assets/img_0939-019d41a3-646f-766e-8edc-509e9768db91.jpeg"
+            alt="Lincoln Mingo - Senior Portrait Cap & Gown"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: "top center" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(10,22,40,0.05) 0%, transparent 30%, rgba(10,22,40,0.55) 100%)",
+            }}
+          />
+          <div className="absolute bottom-6 left-6">
+            <span
+              className="text-xs font-black uppercase tracking-[0.3em] px-4 py-2"
               style={{
-                color: "#0F2B4A",
-                fontFamily: "'Playfair Display', serif",
+                backgroundColor: "#B89A4A",
+                color: "#0A1628",
+                boxShadow: "0 2px 12px rgba(184,154,74,0.5)",
               }}
             >
-              Congratulations,
-              <br />
-              <span style={{ color: "#8B1A28" }}>Lincoln!</span>
-            </h1>
-            <div
-              className="w-16 h-1 mx-auto md:mx-0 mb-4"
-              style={{ backgroundColor: "#B89A4A" }}
-            />
-            <p
-              className="text-lg font-medium mb-2"
-              style={{ color: "#333333" }}
-            >
-              Class of 2026 Graduate
-            </p>
-            <p className="text-base mb-6" style={{ color: "#555555" }}>
-              Please join us as we celebrate this incredible milestone. Your
-              presence would make this special day even more meaningful.
-            </p>
-            <Countdown />
-            <button
-              type="button"
-              onClick={() => scrollTo("rsvp")}
-              className="mt-8 px-10 py-3 text-sm uppercase font-bold tracking-widest text-white rounded transition-all hover:opacity-90 hover:shadow-lg"
-              style={{ backgroundColor: "#0F2B4A", letterSpacing: "0.2em" }}
-            >
-              RSVP Now
-            </button>
+              Senior Portrait
+            </span>
           </div>
+          <div
+            className="absolute top-0 left-0 right-0 h-1"
+            style={{ backgroundColor: "#B89A4A" }}
+          />
         </div>
+
+        {/* PANEL 2 — Football: Arms Crossed */}
+        <div
+          className="relative overflow-hidden"
+          style={{
+            flex: "1",
+            clipPath: "polygon(50px 0, 100% 0, calc(100% - 50px) 100%, 0 100%)",
+            marginLeft: "-50px",
+            zIndex: 2,
+          }}
+        >
+          <img
+            src="/assets/img_0948-019d41a3-648e-724d-8ba8-afa9a58460a4.jpeg"
+            alt="Lincoln Mingo - #13 Arms Crossed"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: "top center" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(10,22,40,0.1) 0%, transparent 35%, rgba(10,22,40,0.6) 100%)",
+            }}
+          />
+          <div className="absolute bottom-6 left-0 right-0 flex justify-center">
+            <span
+              className="text-xs font-black uppercase tracking-[0.3em] px-4 py-2"
+              style={{
+                backgroundColor: "#8B1A28",
+                color: "#FFFFFF",
+                boxShadow: "0 2px 12px rgba(139,26,40,0.5)",
+              }}
+            >
+              #13
+            </span>
+          </div>
+          <div
+            className="absolute top-0 left-0 right-0 h-1"
+            style={{ backgroundColor: "#B89A4A" }}
+          />
+        </div>
+
+        {/* PANEL 3 — Football: With Ball */}
+        <div
+          className="relative overflow-hidden"
+          style={{
+            flex: "1",
+            clipPath: "polygon(50px 0, 100% 0, 100% 100%, 0 100%)",
+            marginLeft: "-50px",
+            zIndex: 1,
+          }}
+        >
+          <img
+            src="/assets/img_0949-019d41a3-6482-70ea-b275-390a920df063.jpeg"
+            alt="Lincoln Mingo - #13 Game Ready"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: "top center" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(10,22,40,0.1) 0%, transparent 35%, rgba(10,22,40,0.6) 100%)",
+            }}
+          />
+          <div className="absolute bottom-6 right-6">
+            <span
+              className="text-xs font-black uppercase tracking-[0.3em] px-4 py-2"
+              style={{
+                backgroundColor: "#8B1A28",
+                color: "#FFFFFF",
+                boxShadow: "0 2px 12px rgba(139,26,40,0.5)",
+              }}
+            >
+              Game Ready
+            </span>
+          </div>
+          <div
+            className="absolute top-0 left-0 right-0 h-1"
+            style={{ backgroundColor: "#B89A4A" }}
+          />
+        </div>
+      </div>
+
+      {/* ── Mobile: Stacked — Cap & Gown FIRST ── */}
+      <div className="flex flex-col md:hidden" style={{ gap: "3px" }}>
+        {/* FIRST: Senior Portrait / Cap & Gown */}
+        <div className="relative overflow-hidden" style={{ height: "400px" }}>
+          <img
+            src="/assets/img_0939-019d41a3-646f-766e-8edc-509e9768db91.jpeg"
+            alt="Lincoln Mingo - Senior Portrait Cap & Gown"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: "top center" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, transparent 40%, rgba(10,22,40,0.8) 100%)",
+            }}
+          />
+          <div className="absolute bottom-4 left-0 right-0 flex justify-center">
+            <span
+              className="text-xs font-black uppercase tracking-widest px-4 py-2"
+              style={{
+                backgroundColor: "#B89A4A",
+                color: "#0A1628",
+              }}
+            >
+              Senior Portrait
+            </span>
+          </div>
+          <div
+            className="absolute top-0 left-0 right-0 h-1"
+            style={{ backgroundColor: "#B89A4A" }}
+          />
+        </div>
+
+        {/* Football: Arms Crossed */}
+        <div className="relative overflow-hidden" style={{ height: "340px" }}>
+          <img
+            src="/assets/img_0948-019d41a3-648e-724d-8ba8-afa9a58460a4.jpeg"
+            alt="Lincoln Mingo - #13 Arms Crossed"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: "top center" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, transparent 40%, rgba(10,22,40,0.8) 100%)",
+            }}
+          />
+          <div className="absolute bottom-4 left-4">
+            <span
+              className="text-xs font-black uppercase tracking-widest px-3 py-1"
+              style={{ backgroundColor: "#8B1A28", color: "#FFFFFF" }}
+            >
+              #13
+            </span>
+          </div>
+          <div
+            className="absolute top-0 left-0 right-0 h-1"
+            style={{ backgroundColor: "#B89A4A" }}
+          />
+        </div>
+
+        {/* Football: With Ball */}
+        <div className="relative overflow-hidden" style={{ height: "340px" }}>
+          <img
+            src="/assets/img_0949-019d41a3-6482-70ea-b275-390a920df063.jpeg"
+            alt="Lincoln Mingo - #13 Game Ready"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: "top center" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, transparent 40%, rgba(10,22,40,0.8) 100%)",
+            }}
+          />
+          <div className="absolute bottom-4 right-4">
+            <span
+              className="text-xs font-black uppercase tracking-widest px-3 py-1"
+              style={{ backgroundColor: "#8B1A28", color: "#FFFFFF" }}
+            >
+              Game Ready
+            </span>
+          </div>
+          <div
+            className="absolute top-0 left-0 right-0 h-1"
+            style={{ backgroundColor: "#B89A4A" }}
+          />
+        </div>
+      </div>
+
+      {/* ── Bottom: Countdown + RSVP ── */}
+      <div className="pb-14 pt-10 px-4 text-center">
+        <p className="text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
+          Please join us as we celebrate this incredible milestone. Your
+          presence would make this special day even more meaningful.
+        </p>
+        <Countdown />
+        <button
+          type="button"
+          onClick={() => scrollTo("rsvp")}
+          data-ocid="hero.primary_button"
+          className="mt-10 px-12 py-4 text-sm uppercase font-black tracking-widest text-white transition-all hover:opacity-90 hover:scale-105"
+          style={{
+            backgroundColor: "#8B1A28",
+            letterSpacing: "0.22em",
+            border: "2px solid #B89A4A",
+            boxShadow:
+              "0 4px 24px rgba(139,26,40,0.5), 0 0 0 1px rgba(184,154,74,0.2)",
+          }}
+        >
+          RSVP Now
+        </button>
       </div>
     </section>
   );
