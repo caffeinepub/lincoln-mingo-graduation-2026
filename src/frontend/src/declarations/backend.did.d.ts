@@ -21,6 +21,12 @@ export interface RSVP {
   'timestamp' : Time,
   'attending' : boolean,
 }
+export interface CustomRSVP {
+  'name' : string,
+  'email' : string,
+  'inviteCode' : string,
+  'timestamp' : Time,
+}
 export type Time = bigint;
 export interface UserProfile { 'name' : string }
 export type UserRole = { 'admin' : null } |
@@ -31,6 +37,7 @@ export interface _SERVICE {
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'generateInviteCode' : ActorMethod<[], string>,
   'getAllRSVPs' : ActorMethod<[], Array<RSVP>>,
+  'getAllCustomRSVPs' : ActorMethod<[], Array<CustomRSVP>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getInviteCodes' : ActorMethod<[], Array<InviteCode>>,
@@ -38,6 +45,7 @@ export interface _SERVICE {
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'submitRSVP' : ActorMethod<[string, boolean, string], undefined>,
+  'submitRSVPWithEmail' : ActorMethod<[string, string, string], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

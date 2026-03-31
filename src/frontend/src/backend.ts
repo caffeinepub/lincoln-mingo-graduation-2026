@@ -104,6 +104,12 @@ export interface RSVP {
     timestamp: Time;
     attending: boolean;
 }
+export interface CustomRSVP {
+    name: string;
+    email: string;
+    inviteCode: string;
+    timestamp: Time;
+}
 export enum UserRole {
     admin = "admin",
     user = "user",
@@ -114,6 +120,7 @@ export interface backendInterface {
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     generateInviteCode(): Promise<string>;
     getAllRSVPs(): Promise<Array<RSVP>>;
+    getAllCustomRSVPs(): Promise<Array<CustomRSVP>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getInviteCodes(): Promise<Array<InviteCode>>;
@@ -121,6 +128,7 @@ export interface backendInterface {
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     submitRSVP(name: string, attending: boolean, inviteCode: string): Promise<void>;
+    submitRSVPWithEmail(name: string, email: string, inviteCode: string): Promise<void>;
 }
 import type { UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
@@ -178,6 +186,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.getAllRSVPs();
+            return result;
+        }
+    }
+    async getAllCustomRSVPs(): Promise<Array<CustomRSVP>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllCustomRSVPs();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllCustomRSVPs();
             return result;
         }
     }
@@ -276,6 +298,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.submitRSVP(arg0, arg1, arg2);
+            return result;
+        }
+    }
+    async submitRSVPWithEmail(arg0: string, arg1: string, arg2: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.submitRSVPWithEmail(arg0, arg1, arg2);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.submitRSVPWithEmail(arg0, arg1, arg2);
             return result;
         }
     }

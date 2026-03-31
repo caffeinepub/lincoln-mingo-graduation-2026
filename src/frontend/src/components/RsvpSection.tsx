@@ -5,7 +5,7 @@ export default function RsvpSection() {
   const { actor } = useActor();
   const [inviteCode, setInviteCode] = useState<string | null>(null);
   const [name, setName] = useState("");
-  const [attending, setAttending] = useState<boolean>(true);
+  const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -23,10 +23,14 @@ export default function RsvpSection() {
       setError("Please enter your name.");
       return;
     }
+    if (!email.trim()) {
+      setError("Please enter your email address.");
+      return;
+    }
     setError("");
     setSubmitting(true);
     try {
-      await actor.submitRSVP(name.trim(), attending, inviteCode);
+      await actor.submitRSVPWithEmail(name.trim(), email.trim(), inviteCode);
       setSubmitted(true);
     } catch (err: unknown) {
       setError(
@@ -103,12 +107,10 @@ export default function RsvpSection() {
                 fontFamily: "'Playfair Display', serif",
               }}
             >
-              {attending ? "We'll See You There!" : "Thank You for Responding"}
+              We'll See You There!
             </h3>
             <p className="text-base" style={{ color: "#555555" }}>
-              {attending
-                ? `Thanks, ${name}! We can't wait to celebrate with you on May 28th.`
-                : `Thanks, ${name}. We're sorry you can't make it, but we appreciate you letting us know.`}
+              Thanks, {name}! We can't wait to celebrate with you on May 28th.
             </p>
           </div>
         ) : !inviteCode ? (
@@ -157,13 +159,20 @@ export default function RsvpSection() {
               className="bg-white rounded-lg p-8 shadow-sm"
               style={{ border: "1px solid #e5e7eb" }}
             >
+              <p
+                className="text-base text-center mb-6"
+                style={{ color: "#555555" }}
+              >
+                Let us know you'll be there to celebrate this milestone!
+              </p>
+
               <div className="mb-5">
                 <label
                   htmlFor="rsvp-name"
                   className="block text-xs uppercase tracking-widest font-semibold mb-2"
                   style={{ color: "#0F2B4A" }}
                 >
-                  Your Full Name *
+                  Your Name
                 </label>
                 <input
                   id="rsvp-name"
@@ -176,48 +185,32 @@ export default function RsvpSection() {
                   style={{
                     borderColor: "#d1d5db",
                     color: "#111111",
-                    fontFamily: "'Inter', sans-serif",
                   }}
                 />
               </div>
 
-              <fieldset
-                className="mb-6"
-                style={{ border: "none", padding: 0, margin: 0 }}
-              >
-                <legend
-                  className="text-xs uppercase tracking-widest font-semibold mb-3"
+              <div className="mb-6">
+                <label
+                  htmlFor="rsvp-email"
+                  className="block text-xs uppercase tracking-widest font-semibold mb-2"
                   style={{ color: "#0F2B4A" }}
                 >
-                  Will you attend? *
-                </legend>
-                <div className="flex gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setAttending(true)}
-                    className="flex-1 py-3 rounded font-semibold text-sm uppercase tracking-wider transition-all"
-                    style={{
-                      backgroundColor: attending ? "#0F2B4A" : "transparent",
-                      color: attending ? "#FFFFFF" : "#0F2B4A",
-                      border: "2px solid #0F2B4A",
-                    }}
-                  >
-                    Yes, I'll Be There!
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setAttending(false)}
-                    className="flex-1 py-3 rounded font-semibold text-sm uppercase tracking-wider transition-all"
-                    style={{
-                      backgroundColor: !attending ? "#8B1A28" : "transparent",
-                      color: !attending ? "#FFFFFF" : "#8B1A28",
-                      border: "2px solid #8B1A28",
-                    }}
-                  >
-                    Unable to Attend
-                  </button>
-                </div>
-              </fieldset>
+                  Email Address
+                </label>
+                <input
+                  id="rsvp-email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  required
+                  className="w-full px-4 py-3 rounded border text-sm outline-none focus:ring-2"
+                  style={{
+                    borderColor: "#d1d5db",
+                    color: "#111111",
+                  }}
+                />
+              </div>
 
               {error && (
                 <p
@@ -234,7 +227,7 @@ export default function RsvpSection() {
                 className="w-full py-4 text-sm uppercase font-bold tracking-[0.2em] text-white rounded transition-all hover:opacity-90 disabled:opacity-50"
                 style={{ backgroundColor: "#0F2B4A" }}
               >
-                {submitting ? "Submitting..." : "Submit RSVP"}
+                {submitting ? "Submitting..." : "Confirm RSVP"}
               </button>
             </div>
           </form>

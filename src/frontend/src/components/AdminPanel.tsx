@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import type { InviteCode, RSVP } from "../backend.d";
+import type { CustomRSVP, InviteCode } from "../backend.d";
 import { useActor } from "../hooks/useActor";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
 
@@ -11,7 +11,7 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
   const { actor } = useActor();
   const { identity, login, clear, isLoggingIn } = useInternetIdentity();
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
-  const [rsvps, setRsvps] = useState<RSVP[]>([]);
+  const [rsvps, setRsvps] = useState<CustomRSVP[]>([]);
   const [inviteCodes, setInviteCodes] = useState<InviteCode[]>([]);
   const [newCode, setNewCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
     try {
       const [adminStatus, allRsvps, codes] = await Promise.all([
         actor.isCallerAdmin(),
-        actor.getAllRSVPs(),
+        actor.getAllCustomRSVPs(),
         actor.getInviteCodes(),
       ]);
       setIsAdmin(adminStatus);
@@ -144,7 +144,7 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
           ) : (
             <>
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-4 mb-6">
+              <div className="grid grid-cols-2 gap-4 mb-6">
                 {[
                   {
                     label: "Total RSVPs",
@@ -152,14 +152,9 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
                     color: "#0F2B4A",
                   },
                   {
-                    label: "Attending",
-                    value: rsvps.filter((r) => r.attending).length,
+                    label: "Invite Codes",
+                    value: inviteCodes.length,
                     color: "#0F2B4A",
-                  },
-                  {
-                    label: "Declining",
-                    value: rsvps.filter((r) => !r.attending).length,
-                    color: "#8B1A28",
                   },
                 ].map(({ label, value, color }) => (
                   <div
@@ -271,7 +266,7 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
                             className="text-left py-2 px-3 text-xs uppercase tracking-widest"
                             style={{ color: "#0F2B4A" }}
                           >
-                            Status
+                            Email
                           </th>
                           <th
                             className="text-left py-2 px-3 text-xs uppercase tracking-widest"
@@ -293,18 +288,11 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
                             >
                               {rsvp.name}
                             </td>
-                            <td className="py-3 px-3">
-                              <span
-                                className="px-2 py-1 rounded text-xs font-bold uppercase"
-                                style={{
-                                  backgroundColor: rsvp.attending
-                                    ? "#dcfce7"
-                                    : "#fee2e2",
-                                  color: rsvp.attending ? "#15803d" : "#991b1b",
-                                }}
-                              >
-                                {rsvp.attending ? "✓ Attending" : "✗ Declining"}
-                              </span>
+                            <td
+                              className="py-3 px-3"
+                              style={{ color: "#555555" }}
+                            >
+                              {rsvp.email}
                             </td>
                             <td
                               className="py-3 px-3 text-xs"

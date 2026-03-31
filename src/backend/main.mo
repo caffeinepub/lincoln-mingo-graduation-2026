@@ -21,6 +21,15 @@ actor {
     name : Text;
   };
 
+  public type CustomRSVP = {
+    name : Text;
+    email : Text;
+    inviteCode : Text;
+    timestamp : Time.Time;
+  };
+
+  let customRsvps = Map.empty<Text, CustomRSVP>();
+
   public shared ({ caller }) func generateInviteCode() : async Text {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can generate invite codes");
@@ -68,5 +77,23 @@ actor {
 
   public shared func submitRSVP(name : Text, attending : Bool, inviteCode : Text) : async () {
     InviteLinksModule.submitRSVP(inviteState, name, attending, inviteCode);
+  };
+
+  public shared func submitRSVPWithEmail(name : Text, email : Text, inviteCode : Text) : async () {
+    let entry : CustomRSVP = {
+      name;
+      email;
+      inviteCode;
+      timestamp = Time.now();
+    };
+    customRsvps.add(inviteCode, entry);
+    InviteLinksModule.submitRSVP(inviteState, name, true, inviteCode);
+  };
+
+  public query ({ caller }) func getAllCustomRSVPs() : async [CustomRSVP] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can view RSVPs");
+    };
+    customRsvps.values().toArray();
   };
 };

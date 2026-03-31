@@ -22,6 +22,12 @@ export interface RSVP {
     timestamp: Time;
     attending: boolean;
 }
+export interface CustomRSVP {
+    name: string;
+    email: string;
+    inviteCode: string;
+    timestamp: Time;
+}
 export enum UserRole {
     admin = "admin",
     user = "user",
@@ -31,6 +37,7 @@ export interface backendInterface {
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     generateInviteCode(): Promise<string>;
     getAllRSVPs(): Promise<Array<RSVP>>;
+    getAllCustomRSVPs(): Promise<Array<CustomRSVP>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getInviteCodes(): Promise<Array<InviteCode>>;
@@ -38,4 +45,5 @@ export interface backendInterface {
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     submitRSVP(name: string, attending: boolean, inviteCode: string): Promise<void>;
+    submitRSVPWithEmail(name: string, email: string, inviteCode: string): Promise<void>;
 }
