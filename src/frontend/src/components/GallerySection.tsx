@@ -34,11 +34,18 @@ export default function GallerySection() {
     >
       <div className="max-w-5xl mx-auto text-center">
         <h2
-          className="text-4xl font-bold mb-4"
+          className="text-4xl font-bold mb-3"
           style={{ color: "#0F2B4A", fontFamily: "'Playfair Display', serif" }}
         >
           Celebrating Lincoln
         </h2>
+        <p
+          className="text-lg italic mb-4"
+          style={{ color: "#8B1A28", fontFamily: "'Playfair Display', serif" }}
+        >
+          From The Football Field to The Stage &mdash; a Journey of Dedication,
+          Maturity, and Growth.
+        </p>
         <div className="flex items-center justify-center gap-3 mb-10">
           <div className="h-px w-16" style={{ backgroundColor: "#B89A4A" }} />
           <div
